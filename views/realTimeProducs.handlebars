@@ -12,19 +12,18 @@
             <li>{{this}}</li>
         {{/each}}
     </ul>
-    <form id="crearProductoForm">
-        <input type="text" id="productoNombre" placeholder="Nombre del producto">
-        <button type="submit">Crear Producto</button>
-    </form>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+    // Script para manejar los WebSockets
     const socket = io();
 
-    document.getElementById('crearProductoForm').addEventListener('submit', (event) => {
-        event.preventDefault();
-        const nombreProducto = document.getElementById('productoNombre').value;
-        socket.emit('crearProducto', nombreProducto);
+    socket.on('connect', () => {
+        console.log('Cliente conectado');
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Cliente desconectado');
     });
 
     socket.on('productoCreado', (producto) => {
